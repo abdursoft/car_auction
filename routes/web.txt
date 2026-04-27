@@ -1,0 +1,47 @@
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\AuctionController;
+use App\Http\Controllers\BidController;
+use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
+
+// --- Public Routes ---
+Route::get('/', [AuctionController::class, 'index'])->name('home');
+Route::get('/auctions/{auction:slug}', [AuctionController::class, 'show'])->name('auctions.show');
+
+// --- Authenticated Routes ---
+Route::middleware(['auth', 'verified'])->group(function () {
+    
+    // Global Profile / Settings
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+
+    // --- 1. Buyer Routes ---
+    Route::middleware(['role:buyer|admin'])->group(function () {
+        Route::post('/auctions/{auction}/bid', [BidController::class, 'store'])->name('bids.store');
+        Route::get('/my-bids', [BidController::class, 'index'])->name('bids.my-history');
+        Route::post('/watchlist/{auction}', [AuctionController::class, 'toggleWatchlist'])->name('watchlist.toggle');
+    });
+
+    // --- 2. Seller / Broker Routes ---
+    Route::middleware(['role:seller|admin'])->group(function () {
+        Route::get('/seller/dashboard', [AuctionController::class, 'sellerDashboard'])->name('seller.dashboard');
+        Route::get('/auctions/create', [AuctionController::class, 'create'])->name('auctions.create');
+        Route::post('/auctions', [AuctionController::class, 'store'])->name('auctions.store');
+    });
+
+    // --- 3. Moderator Routes (Staff) ---
+    Route::middleware(['role:moderator|admin'])->group(function () {
+        Route::get('/pending-approvals', [AuctionController::class, 'pending'])->name('moderator.pending');
+        Route::patch('/auctions/{auction}/approve', [AuctionController::class, 'approve'])->name('auctions.approve');
+    });
+
+    // --- 4. Admin Routes (Full Control) ---
+    Route::middleware(['role:admin'])->prefix('admin')->name('admin.')->group(function () {
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::resource('users', \App\Http\Controllers\Admin\UserController::class);
+        Route::resource('brands', \App\Http\Controllers\Admin\BrandController::class);
+        Route::resource('categories', \App\Http\Controllers\Admin\CategoryController::class);
+    });
+
+});
