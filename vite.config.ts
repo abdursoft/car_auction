@@ -23,6 +23,21 @@ export default defineConfig({
         }),
         wayfinder({
             formVariants: true,
-        }),
+            command: 'cd /home/esycode/docker-php && docker compose exec -T -w /var/www/html/car_auction php php artisan wayfinder:generate --with-form',
+        }), ,
     ],
+    server: {
+        host: '0.0.0.0',
+        port: 5173,
+        strictPort: true,
+
+        cors: {
+            origin: 'http://car-auction.local:8080',
+        },
+
+        hmr: {
+            host: 'car-auction.local',
+            clientPort: 5173,
+        },
+    },
 });
