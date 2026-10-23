@@ -13,5 +13,9 @@
     "Installation": true,
     "Identifier": true,
     "Car": true,
-    "Antique": true
+    "Antique": true,
+    "Payment": true,
+    "Shipping": true,
+    "Wallet": true,
+    "Verification": true
 }
