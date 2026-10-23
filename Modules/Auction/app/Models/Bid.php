@@ -2,21 +2,54 @@
 
 namespace Modules\Auction\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-// use Modules\Auction\Database\Factories\BidFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Bid extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUuids;
 
-    /**
-     * The attributes that are mass assignable.
-     */
-    protected $fillable = [];
+    protected $fillable = [
+        'auction_id',
+        'user_id',
+        'amount',
+        'currency',
+        'status',
+        'bid_type',
+        'placed_at',
+        'rejected_at',
+        'rejection_reason',
+    ];
 
-    // protected static function newFactory(): BidFactory
-    // {
-    //     // return BidFactory::new();
-    // }
+    protected function casts(): array
+    {
+        return [
+            'amount' => 'decimal:2',
+            'placed_at' => 'datetime',
+            'rejected_at' => 'datetime',
+        ];
+    }
+
+    public function auction(): BelongsTo
+    {
+        return $this->belongsTo(Auction::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function scopeAccepted($query)
+    {
+        return $query->whereIn('status', [
+            'active',
+            'winning',
+            'outbid',
+            'winning_bid',
+        ]);
+    }
 }

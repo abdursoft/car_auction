@@ -26,6 +26,10 @@ return new class extends Migration
             $table->boolean('is_active')->default(true);
             $table->unsignedInteger('sort_order')->default(0);
 
+            $table->foreignUuid('antique_id')
+                ->constrained('antiques')
+                ->restrictOnDelete();
+
             $table->timestamps();
             $table->softDeletes();
         });

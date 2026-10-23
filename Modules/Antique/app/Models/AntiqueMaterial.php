@@ -2,21 +2,39 @@
 
 namespace Modules\Antique\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-// use Modules\Antique\Database\Factories\AntiqueMaterialFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class AntiqueMaterial extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUuids, SoftDeletes;
 
-    /**
-     * The attributes that are mass assignable.
-     */
-    protected $fillable = [];
+    protected $fillable = [
+        'name',
+        'slug',
+        'description',
+        'image',
+        'is_active',
+        'sort_order',
+    ];
 
-    // protected static function newFactory(): AntiqueMaterialFactory
-    // {
-    //     // return AntiqueMaterialFactory::new();
-    // }
+    protected function casts(): array
+    {
+        return [
+            'is_active' => 'boolean',
+            'sort_order' => 'integer',
+        ];
+    }
+
+    public function antiques()
+    {
+        return $this->belongsToMany(
+            Antique::class,
+            'antique_antique_material',
+            'antique_material_id',
+            'antique_id'
+        )->withTimestamps();
+    }
 }

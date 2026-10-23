@@ -2,21 +2,32 @@
 
 namespace Modules\Auction\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-// use Modules\Auction\Database\Factories\AuctionImageFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class AuctionImage extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUuids;
 
-    /**
-     * The attributes that are mass assignable.
-     */
-    protected $fillable = [];
+    protected $fillable = [
+        'auction_id',
+        'image_path',
+        'alt_text',
+        'is_primary',
+        'sort_order',
+    ];
 
-    // protected static function newFactory(): AuctionImageFactory
-    // {
-    //     // return AuctionImageFactory::new();
-    // }
+    protected function casts(): array
+    {
+        return [
+            'is_primary' => 'boolean',
+            'sort_order' => 'integer',
+        ];
+    }
+
+    public function auction()
+    {
+        return $this->belongsTo(Auction::class);
+    }
 }

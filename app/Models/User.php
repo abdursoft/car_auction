@@ -1,12 +1,28 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+
+// Module models
+use Modules\Buyer\Models\BuyerProfile;
+use Modules\Auction\Models\Auction;
+use Modules\Auction\Models\Bid;
+use Modules\Auction\Models\Watchlist;
+use Modules\Payment\Models\Payment;
+use Modules\Review\Models\Review;
+use Modules\Wallet\Models\Wallet;
+use Modules\Verification\Models\Address;
+use Modules\Verification\Models\Verification;
+use Modules\Verification\Models\VerificationDocument;
+use Modules\Withdraw\Models\Payout;
 
 class User extends Authenticatable
 {
@@ -39,35 +55,99 @@ class User extends Authenticatable
         'is_verified' => 'boolean',
     ];
 
-    // Auctions created by this user
-    // public function auctions()
-    // {
-    //     return $this->hasMany(Auction::class);
-    // }
+    /*
+    |--------------------------------------------------------------------------
+    | Buyer Module
+    |--------------------------------------------------------------------------
+    */
 
-    // // Bids placed by this user
-    // public function bids()
-    // {
-    //     return $this->hasMany(Bid::class);
-    // }
+    public function buyerProfile(): HasOne
+    {
+        return $this->hasOne(BuyerProfile::class);
+    }
 
-    // // Auctions added to the user's watchlist
-    // public function watchlist()
-    // {
-    //     return $this->belongsToMany(
-    //         Auction::class,
-    //         'watchlist'
-    //     )->withTimestamps();
-    // }
+    public function addresses(): HasMany
+    {
+        return $this->hasMany(Address::class);
+    }
 
-    // // Check whether the user is winning an auction
-    // public function isWinning(Auction $auction): bool
-    // {
-    //     $highestBid = $auction->bids()
-    //         ->orderByDesc('amount')
-    //         ->first();
+    public function documents(): HasMany
+    {
+        return $this->hasMany(VerificationDocument::class);
+    }
 
-    //     return $highestBid !== null
-    //         && (string) $highestBid->user_id === (string) $this->id;
-    // }
+    public function verification(): HasMany
+    {
+        return $this->hasMany(Verification::class);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Auction Module
+    |--------------------------------------------------------------------------
+    */
+
+    public function auctions(): HasMany
+    {
+        return $this->hasMany(Auction::class);
+    }
+
+    public function bids(): HasMany
+    {
+        return $this->hasMany(Bid::class);
+    }
+
+    public function watchlist(): HasMany
+    {
+        return $this->hasMany(Watchlist::class);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Payment Module
+    |--------------------------------------------------------------------------
+    */
+
+    public function payments(): HasMany
+    {
+        return $this->hasMany(Payment::class);
+    }
+
+    public function payouts(): HasMany
+    {
+        return $this->hasMany(Payout::class);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Wallet Module
+    |--------------------------------------------------------------------------
+    */
+
+    public function wallets(): HasMany
+    {
+        return $this->hasMany(Wallet::class);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Review Module
+    |--------------------------------------------------------------------------
+    */
+
+    public function writtenReviews(): HasMany
+    {
+        return $this->hasMany(
+            Review::class,
+            'reviewer_id'
+        );
+    }
+
+    public function receivedReviews(): HasMany
+    {
+        return $this->hasMany(
+            Review::class,
+            'reviewed_user_id'
+        );
+    }
 }

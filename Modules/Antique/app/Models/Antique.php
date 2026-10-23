@@ -2,21 +2,51 @@
 
 namespace Modules\Antique\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-// use Modules\Antique\Database\Factories\AntiqueFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Auction\Models\Auction;
 
 class Antique extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUuids, SoftDeletes;
+
+    protected $fillable = [
+        'title',
+        'maker',
+        'estimated_year',
+        'material',
+        'provenance',
+        'condition_description',
+        'description',
+    ];
+
+    protected function casts(): array
+    {
+        return [
+            'estimated_year' => 'integer',
+        ];
+    }
 
     /**
-     * The attributes that are mass assignable.
+     * Materials associated with this antique.
      */
-    protected $fillable = [];
+    public function materials()
+    {
+        return $this->belongsToMany(
+            AntiqueMaterial::class,
+            'antique_antique_material',
+            'antique_id',
+            'antique_material_id'
+        )->withTimestamps();
+    }
 
-    // protected static function newFactory(): AntiqueFactory
-    // {
-    //     // return AntiqueFactory::new();
-    // }
+    /**
+     * Auctions associated with this antique.
+     */
+    public function auctions()
+    {
+        return $this->hasMany(Auction::class, 'antique_id');
+    }
 }

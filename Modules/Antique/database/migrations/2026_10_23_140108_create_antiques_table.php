@@ -22,10 +22,6 @@ return new class extends Migration
             $table->text('condition_description')->nullable();
             $table->text('description')->nullable();
 
-            $table->foreignUuid('antique_material_id')
-                ->constrained('antique_materials')
-                ->restrictOnDelete();
-
             $table->timestamps();
             $table->softDeletes();
         });

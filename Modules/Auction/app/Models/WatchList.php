@@ -2,21 +2,27 @@
 
 namespace Modules\Auction\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-// use Modules\Auction\Database\Factories\WatchListFactory;
+use Illuminate\Database\Eloquent\Model;
 
-class WatchList extends Model
+class Watchlist extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUuids;
 
-    /**
-     * The attributes that are mass assignable.
-     */
-    protected $fillable = [];
+    protected $fillable = [
+        'user_id',
+        'auction_id',
+    ];
 
-    // protected static function newFactory(): WatchListFactory
-    // {
-    //     // return WatchListFactory::new();
-    // }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function auction()
+    {
+        return $this->belongsTo(Auction::class);
+    }
 }
