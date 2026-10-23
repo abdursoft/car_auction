@@ -1,25 +1,79 @@
+
 import { createInertiaApp } from '@inertiajs/vue3';
-import { createApp, h, DefineComponent } from 'vue';
+import { createApp, h } from 'vue';
+import type { DefineComponent } from 'vue';
+
 import { ZiggyVue } from 'ziggy-js';
 import { Ziggy } from './ziggy';
 
-createInertiaApp({
-    resolve: (name: string) => {
-        const pages = import.meta.glob<DefineComponent>('./pages/**/*.vue', {
-            eager: true,
-        });
-        const page = pages[`./pages/${name}.vue`];
+// import { initializeTheme } from '@/composables/useAppearance';
+// import AppLayout from '@/layouts/AppLayout.vue';
+// import AuthLayout from '@/layouts/AuthLayout.vue';
+// import SettingsLayout from '@/layouts/settings/Layout.vue';
+// import { initializeFlashToast } from '@/lib/flashToast';
 
-        if (!page) {
-            throw new Error(`Page not found: ${name}`);
+const appName = import.meta.env.VITE_APP_NAME || 'Doctor Point';
+
+const pages = import.meta.glob<{
+    default: DefineComponent;
+}>([
+    './pages/**/*.vue',
+    './Pages/**/*.vue',
+    '../../Modules/*/resources/js/Pages/**/*.vue',
+], {
+    eager: true,
+});
+
+void createInertiaApp({
+    title: (title) => (title ? `${title} - ${appName}` : appName),
+
+    resolve: (name) => {
+        let path: string;
+
+        if (name.includes('::')) {
+            const [module, ...pageParts] = name.split('::');
+            const page = pageParts.join('::');
+
+            path = `../../Modules/${module}/resources/js/Pages/${page}.vue`;
+        } else {
+            path = `./pages/${name}.vue`;
+
+            if (!(path in pages)) {
+                path = `./Pages/${name}.vue`;
+            }
         }
 
-        return page;
+        const component = pages[path];
+
+        if (!component) {
+            throw new Error(
+                `Inertia page not found: ${name}. Expected path: ${path}`,
+            );
+        }
+
+        return component;
     },
 
+    // layout: (name) => {
+    //     switch (true) {
+    //         case name === 'Welcome':
+    //             return null;
+
+    //         case name.startsWith('auth/'):
+    //             return AuthLayout;
+
+    //         case name.startsWith('settings/'):
+    //             return [AppLayout, SettingsLayout];
+
+    //         default:
+    //             return AppLayout;
+    //     }
+    // },
+
     setup({ el, App, props, plugin }) {
-        // 1. Create the Vue instance
-        const app = createApp({ render: () => h(App, props) })
+        const app = createApp({
+            render: () => h(App, props),
+        })
             .use(plugin)
             .use(ZiggyVue, {
                 ...Ziggy,
@@ -29,17 +83,25 @@ createInertiaApp({
                         : props.initialPage.url,
             });
 
-        // 3. Only mount if 'el' exists (this runs only in the browser)
+        app.directive('focus', {
+            mounted: (el: HTMLElement, shouldFocus) => {
+                if (shouldFocus.value !== false) {
+                    el.focus();
+                }
+            },
+        });
+
         if (el) {
             app.mount(el);
         }
 
-        // 4. Return the app instance (required for SSR)
         return app;
     },
 
-    // Optional: add progress bar configuration if needed
     progress: {
-        color: '#1c62c4',
+        color: '#4B5563',
     },
 });
+
+// initializeTheme();
+// initializeFlashToast();

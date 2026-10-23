@@ -1,0 +1,11 @@
+{
+    "name": "Diposit",
+    "alias": "diposit",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Diposit\\Providers\\DipositServiceProvider"
+    ],
+    "files": []
+}

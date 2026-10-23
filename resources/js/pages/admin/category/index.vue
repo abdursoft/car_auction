@@ -1,7 +1,7 @@
 <script setup>
 import { useForm } from '@inertiajs/vue3';
 import { Plus, Trash2, Edit3 } from 'lucide-vue-next';
-import Admin from '@/layout/Admin.vue';
+import Admin from '@/layouts/Admin.vue';
 
 defineOptions({ layout: Admin})
 const props = defineProps({

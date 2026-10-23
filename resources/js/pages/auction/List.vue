@@ -1,5 +1,5 @@
 <script setup>
-import HomeLayout from '@/layout/App.vue';
+import HomeLayout from '@/layouts/App.vue';
 import { Head } from '@inertiajs/vue3';
 import { ref } from 'vue';
 import { Icon } from '@iconify/vue';

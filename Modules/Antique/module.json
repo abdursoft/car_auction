@@ -1,0 +1,11 @@
+{
+    "name": "Antique",
+    "alias": "antique",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Antique\\Providers\\AntiqueServiceProvider"
+    ],
+    "files": []
+}

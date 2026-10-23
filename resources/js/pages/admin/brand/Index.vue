@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import AdminLayout from '@/layout/Admin.vue';
-import InventoryLayout from '@/layout/Inventory.vue';
+import AdminLayout from '@/layouts/Admin.vue';
+import InventoryLayout from '@/layouts/Inventory.vue';
 import { MoreHorizontal, Edit, Trash2 } from 'lucide-vue-next';
 import { ref } from 'vue';
 

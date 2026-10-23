@@ -6,7 +6,7 @@ import {
   LogOut, TrendingUp, Clock, ArrowUpRight, 
   Wallet, Bell, Menu, X 
 } from 'lucide-vue-next';
-import App from '@/layout/App.vue';
+import App from '@/layouts/App.vue';
 
 defineOptions({ layout: App });
 

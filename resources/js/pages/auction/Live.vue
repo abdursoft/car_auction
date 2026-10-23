@@ -5,7 +5,7 @@ import {
   ShieldCheck, Zap, TrendingUp, Maximize2,
   ChevronLeft, Eye
 } from 'lucide-vue-next';
-import App from '@/layout/App.vue';
+import App from '@/layouts/App.vue';
 
 defineOptions({ layout: App });
 

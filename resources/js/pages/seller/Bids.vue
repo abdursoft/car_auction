@@ -5,7 +5,7 @@ import {
   Gavel, Clock, ChevronLeft, Share2, Heart, 
   Info, History, ShieldCheck, TrendingUp, ArrowUp 
 } from 'lucide-vue-next';
-import App from '@/layout/App.vue';
+import App from '@/layouts/App.vue';
 
 defineOptions({ layout: App });
 

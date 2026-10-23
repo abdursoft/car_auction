@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\SocialAuthController;
 use App\Http\Controllers\Web\Auth\WebAuthController;
 use App\Http\Controllers\Web\PageController;
 use Illuminate\Support\Facades\Route;
@@ -34,6 +35,12 @@ Route::prefix('auth')->name('auth')->group(function () {
     Route::post('/login', [WebAuthController::class, 'login'])->name('login');
     Route::post('/register', [WebAuthController::class, 'create'])->name('register');
     Route::get('/logout', [WebAuthController::class, 'logout'])->name('logout');
+
+    // google authentication 
+    Route::get('/google', [SocialAuthController::class, 'redirectToGoogle'])
+        ->name('google');
+    Route::get('/google/callback', [SocialAuthController::class, 'handleGoogleCallback'])
+        ->name('google.callback');
 });
 
 // dashboard route for all authenticated users 

@@ -1,0 +1,11 @@
+{
+    "name": "SMSEmail",
+    "alias": "smsemail",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\SMSEmail\\Providers\\SMSEmailServiceProvider"
+    ],
+    "files": []
+}

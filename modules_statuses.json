@@ -1,0 +1,17 @@
+{
+    "Core": true,
+    "Admin": true,
+    "User": true,
+    "Seller": true,
+    "Buyer": true,
+    "Auction": true,
+    "Diposit": true,
+    "Withdraw": true,
+    "Review": true,
+    "Notification": true,
+    "SMSEmail": true,
+    "Installation": true,
+    "Identifier": true,
+    "Car": true,
+    "Antique": true
+}

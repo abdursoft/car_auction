@@ -72,7 +72,7 @@ class WebAuthController extends Controller
     {
         $user = Auth::user();
         if($user->hasRole('admin')) {
-            return Inertia::render('admin/Dashboard');
+            return Inertia::render('Admin::Dashboard');
         } elseif ($user->hasRole('seller')) {
             return Inertia::render('seller/Dashboard');
         } else {

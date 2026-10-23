@@ -10,7 +10,7 @@ import {
   CheckCircle2, X, ShieldCheck, MapPin, 
   Settings2, Activity, Key, Fuel, Gauge
 } from 'lucide-vue-next';
-import SellerLayout from '@/layout/Seller.vue';
+import SellerLayout from '@/layouts/Seller.vue';
 
 import '@uppy/core/css/style.css'
 import '@uppy/dashboard/css/style.css'

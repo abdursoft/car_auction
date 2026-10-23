@@ -5,7 +5,7 @@ import {
   ArrowUpRight, MoreHorizontal, Clock, 
   CheckCircle2, AlertCircle, DollarSign 
 } from 'lucide-vue-next';
-import App from '@/layout/App.vue';
+import App from '@/layouts/App.vue';
 import { route } from 'ziggy-js';
 
 defineOptions({ layout: App });

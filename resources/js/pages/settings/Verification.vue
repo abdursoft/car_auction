@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Head } from '@inertiajs/vue3';
 import { ShieldCheck, CreditCard, UserCheck, AlertCircle, CheckCircle2, ChevronRight } from 'lucide-vue-next';
-import App from '@/layout/App.vue';
+import App from '@/layouts/App.vue';
 defineOptions({ layout: App });
 </script>
 

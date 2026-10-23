@@ -1,0 +1,11 @@
+{
+    "name": "Identifier",
+    "alias": "identifier",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Identifier\\Providers\\IdentifierServiceProvider"
+    ],
+    "files": []
+}

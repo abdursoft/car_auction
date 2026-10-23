@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import AdminLayout from '@/layout/Admin.vue';
+import AdminLayout from '@/layouts/Admin.vue';
 import { TrendingUp, Gavel, Users, DollarSign, Clock } from 'lucide-vue-next';
 
 defineOptions({ layout: AdminLayout });

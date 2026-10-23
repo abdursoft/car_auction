@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Head } from '@inertiajs/vue3';
 import { Bell, Gavel, Mail, CreditCard, Clock, Circle } from 'lucide-vue-next';
-import App from '@/layout/App.vue';
+import App from '@/layouts/App.vue';
 defineOptions({ layout: App });
 
 const notifications = [

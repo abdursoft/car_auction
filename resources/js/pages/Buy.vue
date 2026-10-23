@@ -5,7 +5,7 @@ import {
   ShieldCheck, CheckCircle2, ChevronRight, 
   PlayCircle, HelpCircle
 } from 'lucide-vue-next';
-import App from '@/layout/App.vue';
+import App from '@/layouts/App.vue';
 
 defineOptions({ layout: App });
 

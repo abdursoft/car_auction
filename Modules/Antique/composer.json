@@ -1,0 +1,30 @@
+{
+    "name": "nwidart/antique",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Antique\\": "app/",
+            "Modules\\Antique\\Database\\Factories\\": "database/factories/",
+            "Modules\\Antique\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\Antique\\Tests\\": "tests/"
+        }
+    }
+}

@@ -1,14 +1,14 @@
 <?php
 namespace Database\Seeders;
 
-use App\Models\Auction;
+use App\Models\Car;
 use App\Models\Brand;
 use App\Models\VehicleModel;
 use App\Models\Category;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
-class AuctionSeeder extends Seeder
+class CarSeeder extends Seeder
 {
     public function run(): void
     {
@@ -59,7 +59,7 @@ class AuctionSeeder extends Seeder
             // Assuming 'Sedan' or 'Supercars' category exists
             $category = Category::first(); 
 
-            Auction::updateOrCreate(
+            Car::updateOrCreate(
                 ['stock_number' => $car['stock']],
                 [
                     'vin' => $car['vin'],

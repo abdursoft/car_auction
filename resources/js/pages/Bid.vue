@@ -10,7 +10,7 @@ import {
   CheckCircle2,
   AlertTriangle
 } from 'lucide-vue-next';
-import App from '@/layout/App.vue';
+import App from '@/layouts/App.vue';
 
 defineOptions({ layout: App });
 

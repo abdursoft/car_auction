@@ -10,7 +10,7 @@ import Hero from '@/components/sections/Hero.vue';
 import HowWorks from '@/components/sections/HowWorks.vue';
 import ReviewBidder from '@/components/sections/ReviewBidder.vue';
 import WhyChoose from '@/components/sections/WhyChoose.vue';
-import AppLayout from '@/layout/App.vue';
+import AppLayout from '@/layouts/App.vue';
 defineOptions({
     layout: AppLayout,
 });
