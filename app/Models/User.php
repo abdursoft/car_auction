@@ -18,6 +18,7 @@ use Modules\Auction\Models\Bid;
 use Modules\Auction\Models\Watchlist;
 use Modules\Payment\Models\Payment;
 use Modules\Review\Models\Review;
+use Modules\Shipping\Models\ShippingOrder;
 use Modules\Wallet\Models\Wallet;
 use Modules\Verification\Models\Address;
 use Modules\Verification\Models\Verification;
@@ -149,5 +150,23 @@ class User extends Authenticatable
             Review::class,
             'reviewed_user_id'
         );
+    }
+
+    public function reviewedVerifications(): HasMany
+    {
+        return $this->hasMany(
+            Verification::class,
+            'reviewed_by'
+        );
+    }
+
+    public function purchasedShippingOrders(): HasMany
+    {
+        return $this->hasMany(ShippingOrder::class, 'buyer_id');
+    }
+
+    public function soldShippingOrders(): HasMany
+    {
+        return $this->hasMany(ShippingOrder::class, 'seller_id');
     }
 }

@@ -56,7 +56,7 @@ return new class extends Migration
             $table->softDeletes();
 
             $table->index(['user_id', 'document_type']);
-            $table->index(['buyer_verification_id', 'status']);
+            $table->index(['verification_id', 'status']);
         });
     }
 

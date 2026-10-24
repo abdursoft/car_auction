@@ -1,5 +1,5 @@
 <?php
-namespace Database\Seeders;
+namespace Modules\Antique\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;

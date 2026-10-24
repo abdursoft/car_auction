@@ -18,7 +18,7 @@ return new class extends Migration
                 ->constrained('users')
                 ->cascadeOnDelete();
 
-            $table->string('address_type', 30)->default('shipping');
+            $table->enum('address_type', ['shipping', 'billing', 'residential', 'business'])->default('shipping');
             // shipping, billing, residential, business
 
             $table->string('recipient_name')->nullable();

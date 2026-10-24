@@ -26,10 +26,20 @@ return new class extends Migration
                 ->constrained('users')
                 ->restrictOnDelete();
 
+            // Selected configured shipping method
+            $table->foreignUuid('shipping_method_id')
+                ->nullable()
+                ->constrained('shipping_methods')
+                ->nullOnDelete();
+
             $table->string('delivery_method', 30)->default('shipping');
             // shipping, pickup, local_delivery
 
+            // Snapshot of the selected service
+            $table->string('shipping_method_name')->nullable();
             $table->string('carrier', 100)->nullable();
+            $table->string('service_code')->nullable();
+
             $table->string('tracking_number')->nullable();
             $table->string('tracking_url')->nullable();
 
@@ -41,6 +51,7 @@ return new class extends Migration
             $table->json('recipient_address')->nullable();
             $table->json('pickup_details')->nullable();
 
+            // Price snapshot at checkout
             $table->decimal('shipping_cost', 12, 2)->nullable();
             $table->char('currency', 3)->default('USD');
 
@@ -57,6 +68,7 @@ return new class extends Migration
             $table->index(['buyer_id', 'status']);
             $table->index(['seller_id', 'status']);
             $table->index('tracking_number');
+            $table->index('shipping_method_id');
         });
     }
 

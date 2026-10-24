@@ -1,9 +1,10 @@
 <?php
-namespace Database\Seeders;
+namespace Modules\Admin\Database\Seeders;
 
-use App\Models\Brand;
+
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
+use Modules\Admin\Models\Brand;
 
 class BrandSeeder extends Seeder
 {

@@ -11,6 +11,9 @@ class AdminDatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // $this->call([]);
+        $this->call([
+            BrandSeeder::class,
+            CategorySeeder::class,
+        ]);
     }
 }
